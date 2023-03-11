@@ -2,10 +2,12 @@ package com.practice.MedGen;
 
 public class Items {
     String generic, nonGeneric;
+    int id;
 
-    public Items(String firstName, String lastName) {
-        this.generic = firstName;
-        this.nonGeneric = lastName;
+    public Items(String generic, String nonGeneric, int id) {
+        this.generic = generic;
+        this.nonGeneric = nonGeneric;
+        this.id = id;
     }
 
     public Items() {
@@ -15,15 +17,12 @@ public class Items {
         return generic;
     }
 
-    public void setGeneric(String generic) {
-        this.generic = generic;
-    }
 
     public String getNonGeneric() {
         return nonGeneric;
     }
 
-    public void setNonGeneric(String nonGeneric) {
-        this.nonGeneric = nonGeneric;
+    public int getId() {
+        return id;
     }
 }

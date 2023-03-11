@@ -65,6 +65,7 @@
         android:drawableStart="@drawable/ic_search"
         android:drawablePadding="10dp"
         android:hint="ENTER ID"
+        android:layout_marginHorizontal="10dp"
         android:imeOptions="actionDone"
         android:importantForAutofill="no"
         android:inputType="textCapWords"

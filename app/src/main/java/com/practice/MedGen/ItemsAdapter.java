@@ -9,12 +9,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.practice.MedGen.CartData.CartDatabaseHelper;
 
 import java.util.ArrayList;
 
@@ -38,7 +40,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Items items = list.get(position);
         holder.name.setText(items.nonGeneric);
-        holder.itemView.setOnClickListener(v -> dialogShow(items.generic, items.nonGeneric));
+        holder.itemView.setOnClickListener(v -> dialogShow(items.getGeneric(), items.getNonGeneric(), items.getId()));
     }
 
     @Override
@@ -55,19 +57,25 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
             name = itemView.findViewById(R.id.medName);
         }
     }
-    void dialogShow(String gName, String ngName){
+    void dialogShow(String gName, String ngName, int id){
         final Dialog dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.activity_details);
+        dialog.setContentView(R.layout.detail_layout);
         TextView gShow = dialog.findViewById(R.id.showGeneric);
         TextView ngShow = dialog.findViewById(R.id.showNonGeneric);
+        Button btn = dialog.findViewById(R.id.addButton);
         gShow.setText(gName);
         ngShow.setText(ngName);
+        btn.setOnClickListener(v->{
+            try (CartDatabaseHelper cartDatabaseHelper = new CartDatabaseHelper(context)) {
+                cartDatabaseHelper.addMed(id, gName, ngName);
+            }
+        });
         dialog.show();
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
         dialog.getWindow().setGravity(Gravity.BOTTOM);
+
     }
 
 }
