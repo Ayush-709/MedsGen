@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.google.firebase.firestore.util.Assert;
+
 public class CartDatabaseHelper extends SQLiteOpenHelper {
 
     private Context context;
@@ -50,20 +52,24 @@ public class CartDatabaseHelper extends SQLiteOpenHelper {
         cv.put(COLUMN_GENERIC, gen);
         cv.put(COLUMN_NON_GENERIC, nonGen);
 
-        if(checkExist(id)){
-            int count = getMedCount(id)+1;
-            cv.put(COLUMN_COUNT, count);
-            db.update(TABLE_NAME,cv,COLUMN_ID+ " = ?",new String[]{String.valueOf(id)});
-            Toast.makeText(context, "This med already exists", Toast.LENGTH_SHORT).show();
-        }else {
-            cv.put(COLUMN_COUNT,1);
-            long result = db.insert(TABLE_NAME,null,cv);
-            if(result==-1){
-                Toast.makeText(context, "Failed to add med", Toast.LENGTH_SHORT).show();
-            }else{
-                Toast.makeText(context, "Added Successfully", Toast.LENGTH_SHORT).show();
-            }
+        cv.put(COLUMN_COUNT,1);
+        long result = db.insert(TABLE_NAME,null,cv);
+        if(result==-1){
+            Toast.makeText(context, "Failed to add med", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void increaseMedCount(int id, String gen, String nonGen){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_ID, id);
+        cv.put(COLUMN_GENERIC, gen);
+        cv.put(COLUMN_NON_GENERIC, nonGen);
+
+        int count = getMedCount(id)+1;
+        cv.put(COLUMN_COUNT, count);
+        db.update(TABLE_NAME,cv,COLUMN_ID+ " = ?",new String[]{String.valueOf(id)});
     }
 
     public boolean checkExist(int id){
@@ -84,9 +90,33 @@ public class CartDatabaseHelper extends SQLiteOpenHelper {
         String query = "SELECT * FROM "+ TABLE_NAME+ " WHERE " + COLUMN_ID + " = " + id;
         Cursor cursor = db.rawQuery(query,null);
         if(cursor.moveToFirst()){
-            count = cursor.getInt(3) + 1;
+            count = cursor.getInt(3);
         }
         cursor.close();
         return count;
+    }
+
+    public void removeMedFromCart(int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        try {
+            long result = db.delete(TABLE_NAME, "_id=?", new String[]{String.valueOf(id)});
+            if (result==-1){
+                Toast.makeText(context, "FAILED TO DELETE", Toast.LENGTH_SHORT).show();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void decreaseMedCount(int id, String gen, String nonGen){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMN_ID, id);
+        cv.put(COLUMN_GENERIC, gen);
+        cv.put(COLUMN_NON_GENERIC, nonGen);
+
+        int count = getMedCount(id)-1;
+        cv.put(COLUMN_COUNT, count);
+        db.update(TABLE_NAME,cv,COLUMN_ID+ " = ?",new String[]{String.valueOf(id)});
     }
 }

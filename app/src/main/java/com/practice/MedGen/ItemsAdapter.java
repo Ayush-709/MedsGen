@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -59,23 +60,55 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.MyViewHolder
     }
     void dialogShow(String gName, String ngName, int id){
         final Dialog dialog = new Dialog(context);
+        CartDatabaseHelper cartDatabaseHelper = new CartDatabaseHelper(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.detail_layout);
         TextView gShow = dialog.findViewById(R.id.showGeneric);
         TextView ngShow = dialog.findViewById(R.id.showNonGeneric);
-        Button btn = dialog.findViewById(R.id.addButton);
-        gShow.setText(gName);
-        ngShow.setText(ngName);
+        Button btn = dialog.findViewById(R.id.addMedToCartBtn);
+        Button addMore = dialog.findViewById(R.id.addMoreMed);
+        Button subtractMore = dialog.findViewById(R.id.removeMoreMed);
+        LinearLayout container = dialog.findViewById(R.id.countButtonContainer);
+        TextView medCount = dialog.findViewById(R.id.medCountIncart);
+
+        if(cartDatabaseHelper.checkExist(id)){
+            btn.setVisibility(View.GONE);
+            container.setVisibility(View.VISIBLE);
+            int count = cartDatabaseHelper.getMedCount(id);
+            medCount.setText(String.valueOf(count));
+        }
         btn.setOnClickListener(v->{
-            try (CartDatabaseHelper cartDatabaseHelper = new CartDatabaseHelper(context)) {
-                cartDatabaseHelper.addMed(id, gName, ngName);
+            cartDatabaseHelper.addMed(id, gName, ngName);
+            btn.setVisibility(View.GONE);
+            container.setVisibility(View.VISIBLE);
+            int count = cartDatabaseHelper.getMedCount(id);
+            medCount.setText(String.valueOf(count));
+        });
+        addMore.setOnClickListener(v->{
+            cartDatabaseHelper.increaseMedCount(id,gName,ngName);
+            int count = cartDatabaseHelper.getMedCount(id);
+            medCount.setText(String.valueOf(count));
+        });
+        subtractMore.setOnClickListener(v->{
+            int count = cartDatabaseHelper.getMedCount(id);
+            if(count==1){
+                cartDatabaseHelper.removeMedFromCart(id);
+                container.setVisibility(View.GONE);
+                btn.setVisibility(View.VISIBLE);
+            }else{
+                cartDatabaseHelper.decreaseMedCount(id,gName,ngName);
+                int medCount1 = cartDatabaseHelper.getMedCount(id);
+                medCount.setText(String.valueOf(medCount1));
             }
         });
+
+        gShow.setText(gName);
+        ngShow.setText(ngName);
+
         dialog.show();
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.getWindow().setGravity(Gravity.BOTTOM);
-
     }
 
 }
