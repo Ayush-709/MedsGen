@@ -13,13 +13,13 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.practice.MedGen.CartData.CartActivity;
 import com.practice.MedGen.utility.NetworkChangeListener;
 
 import java.util.ArrayList;
@@ -84,9 +84,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Cart open
         cart = findViewById(R.id.cart);
-        cart.setOnClickListener(view -> {
-            startActivity(new Intent(MainActivity.this, CartActivity.class));
-        });
+        cart.setOnClickListener(view -> startActivity(new Intent(MainActivity.this, CartActivity.class)));
 
 
     }

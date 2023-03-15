@@ -11,8 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".CartActivity"
-            android:parentActivityName=".MainActivity"
+            android:name=".CartData.CartActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

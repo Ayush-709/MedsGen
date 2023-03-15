@@ -2,20 +2,16 @@ package com.practice.MedGen.CartData;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
-import com.google.firebase.firestore.util.Assert;
-
 public class CartDatabaseHelper extends SQLiteOpenHelper {
 
-    private Context context;
+    private final Context context;
     private static final String DATABASE_NAME = "Cart.db";
     private static final int DATABASE_VERSION = 1;
     private static final String TABLE_NAME = "medicine_cart";
@@ -118,5 +114,15 @@ public class CartDatabaseHelper extends SQLiteOpenHelper {
         int count = getMedCount(id)-1;
         cv.put(COLUMN_COUNT, count);
         db.update(TABLE_NAME,cv,COLUMN_ID+ " = ?",new String[]{String.valueOf(id)});
+    }
+
+    Cursor getAllMeds(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM "+TABLE_NAME;
+        Cursor cursor = null;
+        if(db!=null){
+            cursor = db.rawQuery(query,null);
+        }
+        return cursor;
     }
 }
