@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
 import android.database.Cursor;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -11,7 +12,11 @@ import android.graphics.Typeface;
 import android.graphics.pdf.PdfDocument;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.practice.MedGen.Items;
@@ -31,7 +36,6 @@ public class CartActivity extends AppCompatActivity {
     int pageHeight = 1120;
     int pagewidth = 900;
     CartDatabaseHelper cartDatabaseHelper;
-    int i=0;
     Button btn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,13 +56,13 @@ public class CartActivity extends AppCompatActivity {
             if(list.size()==0){
                 Toast.makeText(this, "There are no items",Toast.LENGTH_SHORT).show();
             }else{
-                generatePDF();
+                dialogShow();
             }
 
         });
     }
 
-    private void generatePDF() {
+    private void generatePDF(File file) {
         PdfDocument doc = new PdfDocument();
         Paint title = new Paint();
 
@@ -80,60 +84,47 @@ public class CartActivity extends AppCompatActivity {
             title.setTextSize(14);
             canvas.drawText(list.get(j).getGeneric(),x1Pos,yPos,title);
             canvas.drawText(String.valueOf(cartDatabaseHelper.getMedCount(list.get(j).getId())),x2Pos,yPos,title);
-
         }
         doc.finishPage(myPage);
-        String format = ".pdf";
-        String pathName;
-        if(i!=0){
-            pathName = "/storage/emulated/0/Download/cart"+ i;
-        }else{
-            pathName = "/storage/emulated/0/Download/cart";
-        }
-        File file = new File(pathName+format);
-        if(!file.exists()){
-            try {
-                // after creating a file name we will
-                // write our PDF file to that location.
-                doc.writeTo(new FileOutputStream(file));
 
-                // below line is to print toast message
-                // on completion of PDF generation.
-                Toast.makeText(CartActivity.this, "PDF file generated successfully.", Toast.LENGTH_SHORT).show();
-            } catch (IOException e) {
-                // below line is used
-                // to handle error
-                e.printStackTrace();
-                Log.e("failHoGya", e.getLocalizedMessage());
-            }
-
-        }else{
-            String old = String.valueOf(i);
-            if(pathName.endsWith(old)){
-                pathName=pathName.replace(old,String.valueOf(++i));
-            }else{
-                pathName = pathName+ ++i;
-            }
-            file = new File(pathName+format);
-            try {
-                // after creating a file name we will
-                // write our PDF file to that location.
-                doc.writeTo(new FileOutputStream(file));
-
-                // below line is to print toast message
-                // on completion of PDF generation.
-
-                Toast.makeText(CartActivity.this, "PDF file generated successfully.", Toast.LENGTH_SHORT).show();
-            } catch (IOException e) {
-                // below line is used
-                // to handle error
-                e.printStackTrace();
-                Log.e("failHoGya", e.getLocalizedMessage());
-            }
+        try {
+            doc.writeTo(new FileOutputStream(file));
+            Toast.makeText(CartActivity.this, "PDF file generated successfully.", Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.e("failHoGya", e.getLocalizedMessage());
         }
 
         Log.d("pathMy", file.toString());
         doc.close();
+    }
+
+    public void dialogShow(){
+        final Dialog dialog = new Dialog(CartActivity.this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.layout_get_name);
+        Button btn = dialog.findViewById(R.id.saveFileButton);
+        EditText editText = dialog.findViewById(R.id.getNameET);
+
+        btn.setOnClickListener(v->{
+            String fileName = editText.getText().toString();
+            if(fileName.isEmpty()){
+                editText.setError("Please Enter name");
+            }else {
+                File file = new File("/storage/emulated/0/Download/"+fileName.trim()+".pdf");
+                if(file.exists()){
+                    editText.setError("File Already Exist");
+
+                }else{
+                    generatePDF(file);
+                    dialog.hide();
+                }
+            }
+        });
+
+        dialog.show();
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setGravity(Gravity.CENTER);
     }
 
     private List<Items> storeDataInList() {
