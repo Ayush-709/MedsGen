@@ -4,24 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".ExploreStoreData.ExploreStoreActivity"
     tools:ignore="HardcodedText">
 
     <RelativeLayout
-        android:id="@+id/head"
+        android:id="@+id/head1"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/header_bg"
-        android:orientation="horizontal"
         android:gravity="center_vertical"
+        android:orientation="horizontal"
         android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/logo"
+            android:id="@+id/logo1"
             android:layout_width="60dp"
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
@@ -30,7 +30,7 @@
             android:src="@drawable/logo" />
 
         <TextView
-            android:id="@+id/headText"
+            android:id="@+id/headText1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentStart="true"
@@ -38,57 +38,50 @@
             android:layout_alignParentEnd="true"
             android:gravity="center"
             android:padding="10dp"
-            android:text="MedsGen"
-            android:fontFamily="@font/poppins_medium"
+            android:text="Explore Stores"
             android:textColor="@color/white"
-            android:textSize="25sp" />
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/cart"
-            android:layout_width="48dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="10dp"
-            android:clickable="true"
-            android:contentDescription="@string/name"
-            android:elevation="50dp"
-            android:focusable="true"
-            android:src="@drawable/ic_cart" />
     </RelativeLayout>
 
-    <EditText
-        android:id="@+id/inputID"
+    <LinearLayout
+        android:id="@+id/dropdownContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/search_bg"
-        android:drawableStart="@drawable/ic_search"
-        android:drawablePadding="10dp"
-        android:hint="ENTER ID"
-        android:layout_marginHorizontal="10dp"
-        android:imeOptions="actionDone"
-        android:importantForAutofill="no"
-        android:inputType="textCapWords"
-        android:minHeight="50dp"
-        android:paddingStart="15dp"
-        android:paddingEnd="10dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/head"
-        tools:ignore="TextContrastCheck" />
+        app:layout_constraintTop_toBottomOf="@id/head1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:text="State"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+        <Spinner
+            android:id="@+id/stateInputSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:padding="5dp" />
+
+    </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv"
+        android:id="@+id/storeRV"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="10dp"
-        android:padding="0dp"
-        android:scrollbarSize="10dp"
-        android:scrollbars="vertical"
+        android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputID" />
-
+        app:layout_constraintTop_toBottomOf="@id/dropdownContainer" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

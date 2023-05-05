@@ -41,7 +41,6 @@ public class CartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-        Objects.requireNonNull(getSupportActionBar()).show();
 
         cartDatabaseHelper = new CartDatabaseHelper(this);
         btn = findViewById(R.id.convertToPDFBtn);
