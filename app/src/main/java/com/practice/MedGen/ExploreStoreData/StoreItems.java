@@ -43,4 +43,32 @@ public class StoreItems {
     public String getPin_code() {
         return pin_code;
     }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setContact_person(String contact_person) {
+        this.contact_person = contact_person;
+    }
+
+    public void setDistrict(String district) {
+        this.district = district;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public void setStore_code(String store_code) {
+        this.store_code = store_code;
+    }
+
+    public void setPhone_number(String phone_number) {
+        this.phone_number = phone_number;
+    }
+
+    public void setPin_code(String pin_code) {
+        this.pin_code = pin_code;
+    }
 }

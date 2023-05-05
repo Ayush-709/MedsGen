@@ -14,7 +14,7 @@ public class CartDatabaseHelper extends SQLiteOpenHelper {
     private final Context context;
     private static final String DATABASE_NAME = "Cart.db";
     private static final int DATABASE_VERSION = 1;
-    private static final String TABLE_NAME = "medicine_cart";
+    private static final String TABLE_NAME = "_stores";
     private static final String COLUMN_ID = "_id";
     private static final String COLUMN_NON_GENERIC = "nonGeneric";
     private static final String COLUMN_GENERIC = "generic";

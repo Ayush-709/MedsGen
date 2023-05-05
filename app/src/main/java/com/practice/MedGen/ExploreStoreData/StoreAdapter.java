@@ -46,7 +46,7 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
         return list.size();
     }
 
-    public class StoreViewHolder extends RecyclerView.ViewHolder {
+    public static class StoreViewHolder extends RecyclerView.ViewHolder {
         TextView address, storeCode, location;
         public StoreViewHolder(@NonNull View itemView) {
             super(itemView);
