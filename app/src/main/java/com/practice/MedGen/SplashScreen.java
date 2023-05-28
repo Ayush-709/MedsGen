@@ -19,6 +19,8 @@ import com.practice.MedGen.ExploreStoreData.StoreDatabaseHelper;
 import com.practice.MedGen.ExploreStoreData.StoreItems;
 import com.practice.MedGen.utility.NetworkChangeListener;
 
+import java.util.Objects;
+
 
 @SuppressLint("CustomSplashScreen")
 public class SplashScreen extends AppCompatActivity {
@@ -29,6 +31,7 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
         storeDatabaseHelper =new StoreDatabaseHelper(this);
         storeDatabaseHelper.dropTable();

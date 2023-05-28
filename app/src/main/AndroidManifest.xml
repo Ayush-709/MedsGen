@@ -13,10 +13,12 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ExploreStoreData.StoreDetailActivity"
+            android:parentActivityName=".ExploreStoreData.ExploreStoreActivity"
             android:exported="false" />
         <activity
             android:name=".ExploreStoreData.ExploreStoreActivity"
             android:exported="false"
+            android:parentActivityName=".HomeActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
@@ -32,6 +34,7 @@
         <activity
             android:name=".CartData.CartActivity"
             android:exported="false"
+            android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity

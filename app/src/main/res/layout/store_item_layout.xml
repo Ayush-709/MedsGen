@@ -1,60 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="5dp"
     android:layout_margin="5dp"
-    app:cardElevation="3dp"
-    app:cardCornerRadius="6dp">
+    android:padding="5dp"
+    app:cardCornerRadius="6dp"
+    tools:ignore="HardcodedText"
+    app:cardElevation="3dp">
+
     <LinearLayout
+        android:id="@+id/storeCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        
+
         <TextView
             android:layout_width="wrap_content"
+            android:fontFamily="@font/poppins"
             android:layout_height="wrap_content"
-            android:text="Jan Aushadhi Kenra"
+            android:layout_gravity="center_horizontal"
             android:layout_marginBottom="6dp"
-            android:textSize="16sp"
-            android:layout_gravity="center_horizontal"/>
+            android:text="Jan Aushadhi Kendra"
+            android:textSize="16sp" />
+
         <TextView
             android:id="@+id/showStoreCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="PM3413431"
             android:layout_gravity="center_horizontal"
+            android:text="PM3413431"
+            android:fontFamily="@font/poppins"
             android:textColor="@color/black"
-            android:textSize="11sp"/>
+            android:textSize="11sp" />
 
 
         <TextView
             android:layout_width="match_parent"
-            android:background="@color/black"
+            android:layout_height="1.5dp"
+            android:fontFamily="@font/poppins"
             android:layout_marginHorizontal="40dp"
             android:layout_marginBottom="5dp"
-            android:layout_height="1.5dp"/>
+            android:background="@color/black" />
+
         <TextView
             android:id="@+id/showAddress"
-            android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/poppins"
             android:gravity="center_horizontal"
-            android:fontFamily="@font/patua_one"
-            android:text="Jan Aushadhi Medical Store, Main Road, Opp.Petrol Bunk, Near Maseed"
             android:maxEms="20"
-            android:textColor="@color/black"/>
-            <TextView
+            android:text="Jan Aushadhi Medical Store, Main Road, Opp.Petrol Bunk, Near Maseed"
+            android:textColor="@color/black" />
+
+        <TextView
             android:id="@+id/showDistrictPinCodeState"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Central Delhi, Delhi - 130033"
-            android:fontFamily="@font/poppins_medium"
             android:layout_marginBottom="20dp"
-            android:textColor="@color/black"/>
-        
+            android:fontFamily="@font/poppins_medium"
+            android:text="Central Delhi, Delhi - 130033"
+            android:textColor="@color/black" />
+
 
     </LinearLayout>
 

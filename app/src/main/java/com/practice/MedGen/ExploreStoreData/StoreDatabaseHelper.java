@@ -90,6 +90,15 @@ public class StoreDatabaseHelper extends SQLiteOpenHelper {
         }
         return cursor;
     }
+    Cursor fetchAllByStoreCode(String code){
+        SQLiteDatabase database = this.getReadableDatabase();
+        String query = "SELECT * FROM "+ TABLE_NAME + " WHERE " + COLUMN_STORE_CODE + " = " + code;
+        Cursor cursor = null;
+        if(database!=null){
+            cursor = database.rawQuery(query,null);
+        }
+        return cursor;
+    }
 
     Cursor fetchState(){
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();

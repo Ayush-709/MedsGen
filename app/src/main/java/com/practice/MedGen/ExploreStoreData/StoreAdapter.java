@@ -1,9 +1,11 @@
 package com.practice.MedGen.ExploreStoreData;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -39,6 +41,12 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
         String pin = items.getPin_code();
         String locale = district+", "+state+" - "+pin;
         holder.location.setText(locale);
+
+        holder.layout.setOnClickListener(v->{
+            Intent intent = new Intent(context, StoreDetailActivity.class);
+            intent.putExtra("store_code",items.getStore_code());
+            context.startActivity(intent);
+        });
     }
 
     @Override
@@ -48,11 +56,13 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
 
     public static class StoreViewHolder extends RecyclerView.ViewHolder {
         TextView address, storeCode, location;
+        LinearLayout layout;
         public StoreViewHolder(@NonNull View itemView) {
             super(itemView);
             address = itemView.findViewById(R.id.showAddress);
             storeCode = itemView.findViewById(R.id.showStoreCode);
             location = itemView.findViewById(R.id.showDistrictPinCodeState);
+            layout = itemView.findViewById(R.id.storeCard);
         }
     }
 }

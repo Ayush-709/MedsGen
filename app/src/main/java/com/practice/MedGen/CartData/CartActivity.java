@@ -27,6 +27,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class CartActivity extends AppCompatActivity {
     RecyclerView rv;
@@ -40,6 +41,7 @@ public class CartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
+        Objects.requireNonNull(getSupportActionBar()).setTitle("Cart");
 
         cartDatabaseHelper = new CartDatabaseHelper(this);
         btn = findViewById(R.id.convertToPDFBtn);

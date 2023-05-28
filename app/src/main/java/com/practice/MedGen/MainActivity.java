@@ -23,6 +23,7 @@ import com.practice.MedGen.CartData.CartActivity;
 import com.practice.MedGen.utility.NetworkChangeListener;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     FirebaseFirestore firestore;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
         //Progress Dialog initializing and enabling
         progressDialog = new ProgressDialog(this);
@@ -110,8 +112,8 @@ public class MainActivity extends AppCompatActivity {
                 if(error!=null){
                     if (progressDialog.isShowing())
                         progressDialog.dismiss();
-                    Log.e("found", error.getMessage());
-                    Toast.makeText(this, "ERROR", Toast.LENGTH_SHORT).show();
+                    Log.e("foundError", error.getMessage());
+                    Toast.makeText(this, error.toString(), Toast.LENGTH_SHORT).show();
                     return;
                 }
                 assert value != null;

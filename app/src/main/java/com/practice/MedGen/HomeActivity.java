@@ -20,8 +20,6 @@ public class HomeActivity extends AppCompatActivity {
             Intent intent = new Intent(HomeActivity.this, MainActivity.class);
             startActivity(intent);
         });
-        exploreStoreButton.setOnClickListener(v->{
-            startActivity(new Intent(HomeActivity.this, ExploreStoreActivity.class));
-        });
+        exploreStoreButton.setOnClickListener(v-> startActivity(new Intent(HomeActivity.this, ExploreStoreActivity.class)));
     }
 }

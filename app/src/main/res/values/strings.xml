@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MedGen</string>
+    <string name="app_name">MedsGen</string>
     <string name="name">NAME:</string>
     <string name="details">Details</string>
     <string name="salt">Salt:</string>

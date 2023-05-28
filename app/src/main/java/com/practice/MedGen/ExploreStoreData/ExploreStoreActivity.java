@@ -11,12 +11,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.practice.MedGen.R;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ExploreStoreActivity extends AppCompatActivity {
     Spinner stateSpinner;
@@ -29,6 +29,7 @@ public class ExploreStoreActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_explore_store);
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
         stateSpinner = findViewById(R.id.stateInputSpinner);
         databaseHelper = new StoreDatabaseHelper(this);
@@ -57,7 +58,6 @@ public class ExploreStoreActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 EventChangeListener(stateSpinner.getSelectedItem().toString());
-                Toast.makeText(ExploreStoreActivity.this, stateSpinner.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
